@@ -203,8 +203,33 @@
 
         /* Responsive */
         @media (max-width: 768px) {
+            nav {
+                padding: 1rem 1.5rem;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            nav a:first-child {
+                display: block;
+                margin-bottom: 0.5rem;
+            }
+
+            .nav-links {
+                gap: 0.75rem;
+                flex-wrap: wrap;
+            }
+
+            .nav-links a {
+                font-size: 0.65rem;
+                padding: 0.5rem 0.75rem;
+            }
+
             .page-header h1 {
-                font-size: 1.8rem;
+                font-size: 1.5rem;
+            }
+
+            .page-header p {
+                font-size: 0.85rem;
             }
 
             .wine-header {
@@ -216,7 +241,19 @@
             }
 
             .container {
-                padding: 2rem 1.5rem;
+                padding: 1.5rem 1rem;
+            }
+
+            .wine-card {
+                padding: 1.2rem;
+            }
+
+            .wine-name {
+                font-size: 1.1rem;
+            }
+
+            .category-title {
+                font-size: 1.4rem;
             }
         }
     </style>
