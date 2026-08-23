@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu — Creola</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f5f3f0;
+            color: #2c2c2c;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: #1a2a3a;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav a {
+            color: #d4a574;
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-transform: uppercase;
+        }
+
+        /* Page Header */
+        .page-header {
+            background-color: #1a2a3a;
+            color: #f5f3f0;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-family: Georgia, serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            font-size: 0.95rem;
+            color: #d4a574;
+            letter-spacing: 0.05em;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Menu Section */
+        .menu-section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-family: Georgia, serif;
+            font-size: 1.8rem;
+            color: #1a2a3a;
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+        }
+
+        .section-divider {
+            width: 40px;
+            height: 2px;
+            background-color: #d4a574;
+            margin-bottom: 2rem;
+        }
+
+        /* Dish Card */
+        .dish-card {
+            background-color: #fafaf8;
+            border: 1px solid #e8e5e0;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .dish-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .dish-name {
+            font-family: Georgia, serif;
+            font-size: 1.3rem;
+            color: #1a2a3a;
+            font-weight: 400;
+        }
+
+        .dish-description {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.7;
+            font-style: italic;
+        }
+
+        /* Wine Pairing Box */
+        .wine-pairing {
+            border-top: 1px solid #e8e5e0;
+            padding-top: 1.5rem;
+        }
+
+        .pairing-label {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #1a2a3a;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+
+        .wine-pairing-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 2rem;
+        }
+
+        .pairing-wine-info {
+            flex: 1;
+        }
+
+        .pairing-wine-name {
+            font-family: Georgia, serif;
+            font-size: 1.1rem;
+            color: #1a2a3a;
+            font-weight: 400;
+        }
+
+        .pairing-producer {
+            font-size: 0.9rem;
+            color: #999;
+            margin-top: 0.25rem;
+        }
+
+        .pairing-details {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+
+        .pairing-price {
+            font-family: Georgia, serif;
+            font-size: 1rem;
+            color: #d4a574;
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .price-label {
+            font-size: 0.75rem;
+            color: #999;
+            margin-top: 0.25rem;
+        }
+
+        /* No Pairing */
+        .no-pairing {
+            color: #999;
+            font-style: italic;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #999;
+            font-size: 0.85rem;
+            background-color: #fafaf8;
+            border-top: 1px solid #e8e5e0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .dish-header {
+                flex-direction: column;
+            }
+
+            .wine-pairing-content {
+                flex-direction: column;
+            }
+
+            .pairing-price {
+                text-align: left;
+            }
+
+            .container {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html">Creola</a>
+        <div class="nav-links">
+            <a href="menu.html">Menu</a>
+            <a href="by-glass.html">By the Glass</a>
+            <a href="by-bottle.html">By the Bottle</a>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <h1>Menu</h1>
+        <p>Dishes with suggested wine pairings</p>
+    </div>
+
+    <div class="container">
+        <div class="menu-section">
+            <div class="section-title">Snacks</div>
+            <div class="section-divider"></div>
+
+            <!-- Low Tide in Lagos -->
+            <div class="dish-card">
+                <div class="dish-header">
+                    <div>
+                        <div class="dish-name">Low Tide in Lagos</div>
+                        <div class="dish-description">Summer scallop ceviche, suya salsa matcha</div>
+                    </div>
+                </div>
+                <div class="wine-pairing">
+                    <div class="pairing-label">Suggested Pairing</div>
+                    <div class="wine-pairing-content">
+                        <div class="pairing-wine-info">
+                            <div class="pairing-wine-name">Granite</div>
+                            <div class="pairing-producer">Domaine de l'Ecu</div>
+                            <div class="pairing-details">Loire Valley, 2024 • Melon de Bourgogne</div>
+                        </div>
+                        <div class="pairing-price">
+                            <div>$19</div>
+                            <div class="price-label">per glass</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Patty en Crute -->
+            <div class="dish-card">
+                <div class="dish-header">
+                    <div>
+                        <div class="dish-name">Patty en Crute</div>
+                        <div class="dish-description">Oxtail pâté en croûte</div>
+                    </div>
+                </div>
+                <div class="wine-pairing">
+                    <div class="pairing-label">Suggested Pairing</div>
+                    <div class="wine-pairing-content">
+                        <div class="pairing-wine-info">
+                            <div class="pairing-wine-name">Camino de Navaherreros</div>
+                            <div class="pairing-producer">Bernabeleva</div>
+                            <div class="pairing-details">Gredos, 2025 • Albariño</div>
+                        </div>
+                        <div class="pairing-price">
+                            <div>$16</div>
+                            <div class="price-label">per glass</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ancestral -->
+            <div class="dish-card">
+                <div class="dish-header">
+                    <div>
+                        <div class="dish-name">Ancestral</div>
+                        <div class="dish-description">Collard green potlikker consomme, trout, trout fat roasted cornbread</div>
+                    </div>
+                </div>
+                <div class="wine-pairing">
+                    <div class="pairing-label">Suggested Pairing</div>
+                    <div class="wine-pairing-content">
+                        <div class="pairing-wine-info">
+                            <div class="pairing-wine-name">Charbonnières</div>
+                            <div class="pairing-producer">Sulauze</div>
+                            <div class="pairing-details">Provence, 2023 • Grenache Blend</div>
+                        </div>
+                        <div class="pairing-price">
+                            <div>$17</div>
+                            <div class="price-label">per glass</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blue Smoke Mountains -->
+            <div class="dish-card">
+                <div class="dish-header">
+                    <div>
+                        <div class="dish-name">Blue Smoke Mountains</div>
+                        <div class="dish-description">Elk, blackberry jerk, plantain</div>
+                    </div>
+                </div>
+                <div class="wine-pairing">
+                    <div class="pairing-label">Suggested Pairing</div>
+                    <div class="wine-pairing-content">
+                        <div class="pairing-wine-info">
+                            <div class="pairing-wine-name">Le Vassal</div>
+                            <div class="pairing-producer">Rostaing</div>
+                            <div class="pairing-details">Languedoc, 2022 • Syrah/Grenache Blend</div>
+                        </div>
+                        <div class="pairing-price">
+                            <div>$19</div>
+                            <div class="price-label">per glass</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Yellow Velvet Cake -->
+            <div class="dish-card">
+                <div class="dish-header">
+                    <div>
+                        <div class="dish-name">Yellow Velvet Cake</div>
+                        <div class="dish-description">Passion fruit tiramisu</div>
+                    </div>
+                </div>
+                <div class="wine-pairing">
+                    <div class="pairing-label">Suggested Pairing</div>
+                    <div class="wine-pairing-content">
+                        <div class="pairing-wine-info">
+                            <div class="no-pairing">No wine pairing suggested</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Creola — Staff Educational Resource</p>
+    </footer>
+</body>
+</html>
