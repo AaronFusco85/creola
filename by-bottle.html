@@ -262,8 +262,11 @@
                 const csv = await response.text();
                 const wines = parseCSV(csv);
                 
-                // Filter for wines with priceBottle value
-                const byBottleWines = wines.filter(w => w.priceBottle && w.priceBottle.trim() !== '');
+                // Filter for wines with priceBottle value AND NO priceGlass value (bottle-only wines)
+                const byBottleWines = wines.filter(w => 
+                    w.priceBottle && w.priceBottle.trim() !== '' && 
+                    (!w.priceGlass || w.priceGlass.trim() === '')
+                );
                 
                 renderWines(byBottleWines);
             } catch (error) {

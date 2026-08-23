@@ -241,128 +241,144 @@
     </div>
 
     <div class="container">
-        <div class="menu-section">
-            <div class="section-title">Snacks</div>
-            <div class="section-divider"></div>
-
-            <!-- Low Tide in Lagos -->
-            <div class="dish-card">
-                <div class="dish-header">
-                    <div>
-                        <div class="dish-name">Low Tide in Lagos</div>
-                        <div class="dish-description">Summer scallop ceviche, suya salsa matcha</div>
-                    </div>
-                </div>
-                <div class="wine-pairing">
-                    <div class="pairing-label">Suggested Pairing</div>
-                    <div class="wine-pairing-content">
-                        <div class="pairing-wine-info">
-                            <div class="pairing-wine-name">Granite</div>
-                            <div class="pairing-producer">Domaine de l'Ecu</div>
-                            <div class="pairing-details">Loire Valley, 2024 • Melon de Bourgogne</div>
-                        </div>
-                        <div class="pairing-price">
-                            <div>$19</div>
-                            <div class="price-label">per glass</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Patty en Crute -->
-            <div class="dish-card">
-                <div class="dish-header">
-                    <div>
-                        <div class="dish-name">Patty en Crute</div>
-                        <div class="dish-description">Oxtail pâté en croûte</div>
-                    </div>
-                </div>
-                <div class="wine-pairing">
-                    <div class="pairing-label">Suggested Pairing</div>
-                    <div class="wine-pairing-content">
-                        <div class="pairing-wine-info">
-                            <div class="pairing-wine-name">Camino de Navaherreros</div>
-                            <div class="pairing-producer">Bernabeleva</div>
-                            <div class="pairing-details">Gredos, 2025 • Albariño</div>
-                        </div>
-                        <div class="pairing-price">
-                            <div>$16</div>
-                            <div class="price-label">per glass</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Ancestral -->
-            <div class="dish-card">
-                <div class="dish-header">
-                    <div>
-                        <div class="dish-name">Ancestral</div>
-                        <div class="dish-description">Collard green potlikker consomme, trout, trout fat roasted cornbread</div>
-                    </div>
-                </div>
-                <div class="wine-pairing">
-                    <div class="pairing-label">Suggested Pairing</div>
-                    <div class="wine-pairing-content">
-                        <div class="pairing-wine-info">
-                            <div class="pairing-wine-name">Charbonnières</div>
-                            <div class="pairing-producer">Sulauze</div>
-                            <div class="pairing-details">Provence, 2023 • Grenache Blend</div>
-                        </div>
-                        <div class="pairing-price">
-                            <div>$17</div>
-                            <div class="price-label">per glass</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Blue Smoke Mountains -->
-            <div class="dish-card">
-                <div class="dish-header">
-                    <div>
-                        <div class="dish-name">Blue Smoke Mountains</div>
-                        <div class="dish-description">Elk, blackberry jerk, plantain</div>
-                    </div>
-                </div>
-                <div class="wine-pairing">
-                    <div class="pairing-label">Suggested Pairing</div>
-                    <div class="wine-pairing-content">
-                        <div class="pairing-wine-info">
-                            <div class="pairing-wine-name">Le Vassal</div>
-                            <div class="pairing-producer">Rostaing</div>
-                            <div class="pairing-details">Languedoc, 2022 • Syrah/Grenache Blend</div>
-                        </div>
-                        <div class="pairing-price">
-                            <div>$19</div>
-                            <div class="price-label">per glass</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Yellow Velvet Cake -->
-            <div class="dish-card">
-                <div class="dish-header">
-                    <div>
-                        <div class="dish-name">Yellow Velvet Cake</div>
-                        <div class="dish-description">Passion fruit tiramisu</div>
-                    </div>
-                </div>
-                <div class="wine-pairing">
-                    <div class="pairing-label">Suggested Pairing</div>
-                    <div class="wine-pairing-content">
-                        <div class="pairing-wine-info">
-                            <div class="no-pairing">No wine pairing suggested</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div id="menu-container">
+            <div style="text-align: center; padding: 2rem; color: #999;">Loading menu...</div>
         </div>
     </div>
 
     <footer>
         <p>Creola — Staff Educational Resource</p>
     </footer>
+
+    <script>
+        // Menu Google Sheet URL
+        const MENU_SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSz_CsAwRyuEkwZT1heANG0GzS2jjVlWAruquxxw_OnAQfBcsxYE4uhHpAf_rO4PU2nw4XPsZ3VM9jD/pub?gid=424179519&single=true&output=csv';
+
+        async function loadMenu() {
+            try {
+                const response = await fetch(MENU_SHEET_URL);
+                const csv = await response.text();
+                const dishes = parseCSV(csv);
+                renderMenu(dishes);
+            } catch (error) {
+                document.getElementById('menu-container').innerHTML = 
+                    '<p style="text-align: center; color: #999;">Unable to load menu. Please try again.</p>';
+                console.error('Error loading menu:', error);
+            }
+        }
+
+        function parseCSV(csv) {
+            const lines = csv.trim().split('\n');
+            const headers = parseCSVLine(lines[0]);
+            const dishes = [];
+
+            for (let i = 1; i < lines.length; i++) {
+                const values = parseCSVLine(lines[i]);
+                const obj = {};
+
+                for (let j = 0; j < headers.length; j++) {
+                    obj[headers[j]] = values[j] || '';
+                }
+
+                if (obj.id) dishes.push(obj);
+            }
+
+            return dishes;
+        }
+
+        function parseCSVLine(line) {
+            const result = [];
+            let current = '';
+            let insideQuotes = false;
+
+            for (let i = 0; i < line.length; i++) {
+                const char = line[i];
+                const nextChar = line[i + 1];
+
+                if (char === '"') {
+                    if (insideQuotes && nextChar === '"') {
+                        current += '"';
+                        i++;
+                    } else {
+                        insideQuotes = !insideQuotes;
+                    }
+                } else if (char === ',' && !insideQuotes) {
+                    result.push(current.trim());
+                    current = '';
+                } else {
+                    current += char;
+                }
+            }
+
+            result.push(current.trim());
+            return result;
+        }
+
+        function renderMenu(dishes) {
+            const container = document.getElementById('menu-container');
+            container.innerHTML = '';
+
+            const section = document.createElement('div');
+            section.className = 'menu-section';
+
+            const title = document.createElement('div');
+            title.className = 'section-title';
+            title.textContent = 'Snacks';
+
+            const divider = document.createElement('div');
+            divider.className = 'section-divider';
+
+            section.appendChild(title);
+            section.appendChild(divider);
+
+            dishes.forEach(dish => {
+                const card = document.createElement('div');
+                card.className = 'dish-card';
+
+                let pairingHTML = '';
+                if (dish.pairingWine && dish.pairingWine.trim()) {
+                    pairingHTML = `
+                        <div class="wine-pairing">
+                            <div class="pairing-label">Suggested Pairing</div>
+                            <div class="wine-pairing-content">
+                                <div class="pairing-wine-info">
+                                    <div class="pairing-wine-name">${dish.pairingWine}</div>
+                                    <div class="pairing-details">${dish.pairingDescription || 'Pairing notes coming soon.'}</div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    pairingHTML = `
+                        <div class="wine-pairing">
+                            <div class="pairing-label">Suggested Pairing</div>
+                            <div class="wine-pairing-content">
+                                <div class="pairing-wine-info">
+                                    <div class="no-pairing">No wine pairing suggested</div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                card.innerHTML = `
+                    <div class="dish-header">
+                        <div>
+                            <div class="dish-name">${dish.foodName}</div>
+                            <div class="dish-description">${dish.foodDescription}</div>
+                        </div>
+                    </div>
+                    ${pairingHTML}
+                `;
+
+                section.appendChild(card);
+            });
+
+            container.appendChild(section);
+        }
+
+        // Load menu on page load
+        loadMenu();
+    </script>
 </body>
 </html>
