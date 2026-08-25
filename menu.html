@@ -14,8 +14,8 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background-color: #f5f3f0;
-            color: #2c2c2c;
+            background-color: #ffffff;
+            color: #1a1a1a;
             line-height: 1.6;
         }
 
@@ -32,7 +32,7 @@
         }
 
         nav a {
-            color: #d4a574;
+            color: #f4d89f;
             text-decoration: none;
             font-size: 0.875rem;
             font-weight: 500;
@@ -51,7 +51,7 @@
         /* Page Header */
         .page-header {
             background-color: #1a2a3a;
-            color: #f5f3f0;
+            color: #ffffff;
             padding: 3rem 2rem;
             text-align: center;
         }
@@ -65,7 +65,7 @@
 
         .page-header p {
             font-size: 0.95rem;
-            color: #d4a574;
+            color: #f4d89f;
             letter-spacing: 0.05em;
         }
 
@@ -92,14 +92,14 @@
         .section-divider {
             width: 40px;
             height: 2px;
-            background-color: #d4a574;
+            background-color: #c9955f;
             margin-bottom: 2rem;
         }
 
         /* Dish Card */
         .dish-card {
-            background-color: #fafaf8;
-            border: 1px solid #e8e5e0;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
             margin-bottom: 2rem;
             padding: 2rem;
             display: grid;
@@ -122,14 +122,14 @@
 
         .dish-description {
             font-size: 0.95rem;
-            color: #555;
+            color: #333;
             line-height: 1.7;
             font-style: italic;
         }
 
         /* Wine Pairing Box */
         .wine-pairing {
-            border-top: 1px solid #e8e5e0;
+            border-top: 1px solid #ddd;
             padding-top: 1.5rem;
         }
 
@@ -162,27 +162,29 @@
 
         .pairing-producer {
             font-size: 0.9rem;
-            color: #999;
+            color: #555;
             margin-top: 0.25rem;
         }
 
         .pairing-details {
             font-size: 0.85rem;
-            color: #666;
+            color: #333;
             margin-top: 0.5rem;
+            line-height: 1.6;
         }
 
         .pairing-price {
             font-family: Georgia, serif;
             font-size: 1rem;
-            color: #d4a574;
+            color: #c9955f;
             text-align: right;
             white-space: nowrap;
+            font-weight: 500;
         }
 
         .price-label {
             font-size: 0.75rem;
-            color: #999;
+            color: #777;
             margin-top: 0.25rem;
         }
 
@@ -196,10 +198,10 @@
         footer {
             text-align: center;
             padding: 2rem;
-            color: #999;
+            color: #666;
             font-size: 0.85rem;
-            background-color: #fafaf8;
-            border-top: 1px solid #e8e5e0;
+            background-color: #f9f9f9;
+            border-top: 1px solid #e0e0e0;
         }
 
         /* Responsive */
@@ -302,6 +304,13 @@
                 const response = await fetch(MENU_SHEET_URL);
                 const csv = await response.text();
                 const dishes = parseCSV(csv);
+                
+                if (dishes.length === 0) {
+                    document.getElementById('menu-container').innerHTML = 
+                        '<p style="text-align: center; color: #999;">No dishes found. Check the sheet has data.</p>';
+                    return;
+                }
+                
                 renderMenu(dishes);
             } catch (error) {
                 document.getElementById('menu-container').innerHTML = 
